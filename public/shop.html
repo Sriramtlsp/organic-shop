@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Organic Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Organic Shop</a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop">Shop</a></li>
+                        <li><a href="/#categories">Categories</a></li>
+                        <li><a href="/#about">About</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="user-actions">
+                    <a href="/cart" class="cart-icon">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <div id="userMenu">
+                        <a href="/login" class="btn btn-outline" id="loginBtn">Login</a>
+                        <a href="/register" class="btn btn-primary" id="registerBtn">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Shop Content -->
+    <div class="container" style="padding: 2rem 0;">
+        <h1 class="text-center mb-2">Shop Organic Products</h1>
+        
+        <!-- Search and Filter Bar -->
+        <div class="search-filter-bar">
+            <input type="text" id="searchInput" class="form-control search-input" placeholder="Search products...">
+            <select id="categoryFilter" class="form-control filter-select">
+                <option value="all">All Categories</option>
+                <option value="fruits">Fruits</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="grains">Grains</option>
+                <option value="dairy">Dairy</option>
+                <option value="herbs">Herbs</option>
+                <option value="nuts">Nuts</option>
+                <option value="beverages">Beverages</option>
+            </select>
+            <button id="searchBtn" class="btn btn-primary">Search</button>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <!-- Pagination will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-green); color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <div class="container">
+            <p>&copy; 2024 Organic Shop. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Fresh • Natural • Sustainable</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/shop.js"></script>
+</body>
+</html>

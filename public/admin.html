@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Organic Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Organic Shop Admin</a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop">Shop</a></li>
+                        <li><a href="/admin">Dashboard</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="user-actions">
+                    <div id="userMenu">
+                        <a href="/login" class="btn btn-outline" id="loginBtn">Login</a>
+                        <a href="/register" class="btn btn-primary" id="registerBtn">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Dashboard -->
+    <div class="container" style="padding: 2rem 0;">
+        <h1 class="text-center mb-2">Admin Dashboard</h1>
+        
+        <!-- Dashboard Stats -->
+        <div class="admin-stats" id="dashboardStats">
+            <!-- Stats will be loaded here -->
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <div style="display: flex; gap: 1rem; margin: 2rem 0; border-bottom: 2px solid var(--border-light);">
+            <button class="tab-btn active" onclick="showTab('products')">Products</button>
+            <button class="tab-btn" onclick="showTab('orders')">Orders</button>
+            <button class="tab-btn" onclick="showTab('addProduct')">Add Product</button>
+        </div>
+        
+        <!-- Products Tab -->
+        <div id="productsTab" class="tab-content">
+            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 2rem;">
+                <h2>Manage Products</h2>
+                <button class="btn btn-primary" onclick="showTab('addProduct')">Add New Product</button>
+            </div>
+            
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <!-- Products will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination" id="productsPagination">
+                <!-- Pagination will be rendered here -->
+            </div>
+        </div>
+        
+        <!-- Orders Tab -->
+        <div id="ordersTab" class="tab-content hidden">
+            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 2rem;">
+                <h2>Manage Orders</h2>
+                <select id="orderStatusFilter" class="form-control" style="width: 200px;" onchange="loadOrders()">
+                    <option value="all">All Orders</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="processing">Processing</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Orders will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination" id="ordersPagination">
+                <!-- Pagination will be rendered here -->
+            </div>
+        </div>
+        
+        <!-- Add Product Tab -->
+        <div id="addProductTab" class="tab-content hidden">
+            <h2>Add New Product</h2>
+            
+            <div style="max-width: 600px;">
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productCategory">Category</label>
+                        <select id="productCategory" class="form-control" required>
+                            <option value="">Select Category</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="grains">Grains</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="herbs">Herbs</option>
+                            <option value="nuts">Nuts</option>
+                            <option value="beverages">Beverages</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="productPrice">Price (₹)</label>
+                            <input type="number" id="productPrice" class="form-control" step="0.01" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productWeight">Weight/Size</label>
+                            <input type="text" id="productWeight" class="form-control" placeholder="e.g., 1kg, 500g, 1L" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productStock">Stock Quantity</label>
+                        <input type="number" id="productStock" class="form-control" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productImage">Product Image</label>
+                        <div class="image-upload-container">
+                            <div class="upload-method-tabs">
+                                <button type="button" class="upload-tab active" onclick="switchUploadMethod('upload')">Upload Image</button>
+                                <button type="button" class="upload-tab" onclick="switchUploadMethod('url')">Image URL</button>
+                            </div>
+                            
+                            <!-- File Upload Section -->
+                            <div id="uploadSection" class="upload-section">
+                                <div class="file-upload-area" id="fileUploadArea" onclick="triggerFileInput()">
+                                    <input type="file" id="productImageFile" accept="image/*" style="display: none;">
+                                    <div class="upload-placeholder">
+                                        <div class="upload-icon">📁</div>
+                                        <p>Click to upload image or drag & drop</p>
+                                        <small>Supports: JPG, PNG, GIF, WebP (Max 5MB)</small>
+                                    </div>
+                                </div>
+                                <div id="uploadProgress" class="upload-progress hidden">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                    <span id="progressText">Uploading...</span>
+                                </div>
+                            </div>
+                            
+                            <!-- URL Input Section -->
+                            <div id="urlSection" class="upload-section hidden">
+                                <input type="url" id="productImageUrl" class="form-control" placeholder="https://example.com/image.jpg">
+                            </div>
+                            
+                            <!-- Image Preview -->
+                            <div id="imagePreview" class="image-preview hidden">
+                                <img id="previewImg" src="" alt="Product preview">
+                                <div class="preview-actions">
+                                    <button type="button" class="btn btn-sm btn-outline" onclick="removeImage()">Remove</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Hidden input to store final image URL -->
+                            <input type="hidden" id="productImage" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" class="form-control" rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <span id="addProductBtnText">Add Product</span>
+                        <div id="addProductLoader" class="loading hidden" style="display: inline-block; margin-left: 0.5rem;"></div>
+                    </button>
+                </form>
+                
+                <div id="addProductErrorContainer" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Product</h3>
+                <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            
+            <form id="editProductForm">
+                <input type="hidden" id="editProductId">
+                
+                <div class="form-group">
+                    <label for="editProductName">Product Name</label>
+                    <input type="text" id="editProductName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editProductCategory">Category</label>
+                    <select id="editProductCategory" class="form-control" required>
+                        <option value="fruits">Fruits</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="grains">Grains</option>
+                        <option value="dairy">Dairy</option>
+                        <option value="herbs">Herbs</option>
+                        <option value="nuts">Nuts</option>
+                        <option value="beverages">Beverages</option>
+                    </select>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="editProductPrice">Price (₹)</label>
+                        <input type="number" id="editProductPrice" class="form-control" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editProductWeight">Weight/Size</label>
+                        <input type="text" id="editProductWeight" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editProductStock">Stock Quantity</label>
+                    <input type="number" id="editProductStock" class="form-control" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editProductImage">Image URL</label>
+                    <input type="url" id="editProductImage" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editProductDescription">Description</label>
+                    <textarea id="editProductDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary">Update Product</button>
+                    <button type="button" class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+            
+            <div id="editProductErrorContainer" class="mt-2"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-green); color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <div class="container">
+            <p>&copy; 2024 Organic Shop. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Fresh • Natural • Sustainable</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

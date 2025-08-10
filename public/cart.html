@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Organic Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Organic Shop</a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop">Shop</a></li>
+                        <li><a href="/#categories">Categories</a></li>
+                        <li><a href="/#about">About</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="user-actions">
+                    <a href="/cart" class="cart-icon">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <div id="userMenu">
+                        <a href="/login" class="btn btn-outline" id="loginBtn">Login</a>
+                        <a href="/register" class="btn btn-primary" id="registerBtn">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Content -->
+    <div class="container" style="padding: 2rem 0;">
+        <h1 class="text-center mb-2">Your Shopping Cart</h1>
+        
+        <div id="cartContainer">
+            <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div id="cartSummary" class="hidden" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); margin-top: 2rem;">
+            <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span>Subtotal:</span>
+                <span id="subtotal">₹0.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span>Delivery:</span>
+                <span>Free</span>
+            </div>
+            <hr style="margin: 1rem 0;">
+            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-bottom: 2rem;">
+                <span>Total:</span>
+                <span id="total">₹0.00</span>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <a href="/shop" class="btn btn-outline" style="flex: 1;">Continue Shopping</a>
+                <button id="checkoutBtn" class="btn btn-primary" style="flex: 1;">Proceed to Checkout</button>
+            </div>
+        </div>
+        
+        <div id="emptyCart" class="hidden text-center" style="padding: 3rem 0;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+            <h2 style="margin-bottom: 1rem;">Your cart is empty</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light);">Add some organic products to get started!</p>
+            <a href="/shop" class="btn btn-primary">Start Shopping</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-green); color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <div class="container">
+            <p>&copy; 2024 Organic Shop. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Fresh • Natural • Sustainable</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
